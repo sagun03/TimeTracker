@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import TaskForm from './TaskForm';
+import Table from '../Table';
 
 const Task = () => {
   const taskData = useSelector((state) => state.task?.taskData)
@@ -10,10 +11,11 @@ const Task = () => {
       justifyContent: 'center',
       alignItems: 'center',
       height: '100vh',
+      flexDirection: 'column',
   }}>
         <TaskForm/>
        {" "}
-         {taskData && taskData.length && taskData.map(({ name, desc}) => <div>NAME: {name} <br/> DESCRIPTION: {desc}</div>)}
+       <Table rowData={taskData} headCells={[{label: 'Name'}, { label: 'Description'}]}/>
     </div>
   )
 }

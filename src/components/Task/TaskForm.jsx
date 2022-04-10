@@ -8,7 +8,6 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useDispatch } from 'react-redux';
 import { saveTaskData } from '../../reducers/task/taskAction';
-import { TextareaAutosize } from '@mui/material';
 
 const FormDialog = () => {
   const [open, setOpen] = React.useState(false);
