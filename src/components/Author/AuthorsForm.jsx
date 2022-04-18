@@ -8,8 +8,9 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useDispatch } from 'react-redux';
 import { saveAuthorData } from '../../reducers/author/authorAction';
+import { v4 as uuidv4 } from "uuid";
 
-export default function FormDialog() {
+const FormDialog = () => {
   const [open, setOpen] = React.useState(false);
   const [authorData, setAuthorData] = useState({ name: '', email: '',});
   console.log('authorData', authorData)
@@ -27,7 +28,7 @@ const dispatch = useDispatch();
     setOpen(false);
   };
   const handleChange = (e, type) => {
-    setAuthorData({...authorData, [type]: e.target.value})
+    setAuthorData({...authorData, [type]: e.target.value, id: uuidv4()})
   }
   return (
     <div>
@@ -42,6 +43,7 @@ const dispatch = useDispatch();
           </DialogContentText>
           <TextField
             margin="dense"
+            required
             id="name"
             label="Name of the Author"
             type="text"
@@ -52,6 +54,7 @@ const dispatch = useDispatch();
           <TextField
             margin="dense"
             id="email"
+            required
             label="Email Address"
             type="email"
             fullWidth
@@ -62,9 +65,11 @@ const dispatch = useDispatch();
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleSave}>Save</Button>
+          <Button onClick={handleSave} disabled={!(authorData.name && authorData.email)}>Save</Button>
         </DialogActions>
       </Dialog>
     </div>
   );
 }
+
+export default FormDialog

@@ -1,4 +1,4 @@
-import { EDIT_AUTHOR, SAVE_AUTHOR } from './authorType'
+import { DELETE_AUTHOR, SAVE_AUTHOR } from './authorType'
 
 export const saveAuthorData = (data) => {
   return {
@@ -7,10 +7,9 @@ export const saveAuthorData = (data) => {
   }
 }
 
-
-export const editAuthorData = (data) => {
+export const deleteAuthorData = (id) => {
   return {
-    type: EDIT_AUTHOR,
-    payload: data,
+    type: DELETE_AUTHOR,
+    payload: id,
   }
 }

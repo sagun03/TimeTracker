@@ -1,7 +1,7 @@
 import { NAVIGATE } from './navigationType'
 
 const initialState = {
-  componentToRender: 'Author'
+  componentToRender: localStorage.getItem('componentToRender') || 'Author'
 }
 
 const navigationReducer = (state = initialState, action) => {

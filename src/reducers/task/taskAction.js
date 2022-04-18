@@ -1,4 +1,4 @@
-import { EDIT_TASK, SAVE_TASK } from './taskType'
+import { SAVE_TASK, DELETE_TASK } from './taskType'
 
 export const saveTaskData = (data) => {
   return {
@@ -8,9 +8,9 @@ export const saveTaskData = (data) => {
 }
 
 
-export const editTaskData = (data) => {
+export const deleteTaskData = (id) => {
   return {
-    type: EDIT_TASK,
-    payload: data,
+    type: DELETE_TASK,
+    payload: id,
   }
 }

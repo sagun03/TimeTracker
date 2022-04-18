@@ -8,6 +8,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useDispatch } from 'react-redux';
 import { saveTaskData } from '../../reducers/task/taskAction';
+import { v4 as uuidv4 } from "uuid";
 
 const FormDialog = () => {
   const [open, setOpen] = React.useState(false);
@@ -27,7 +28,7 @@ const dispatch = useDispatch();
     setOpen(false);
   };
   const handleChange = (e, type) => {
-    setTaskData({...taskData, [type]: e.target.value})
+    setTaskData({...taskData, [type]: e.target.value, id: uuidv4() })
   }
   return (
     <div>
@@ -41,6 +42,7 @@ const dispatch = useDispatch();
            Add Task data from here
           </DialogContentText>
           <TextField
+            required
             margin="dense"
             id="name"
             label="Name of the Task"
@@ -51,6 +53,7 @@ const dispatch = useDispatch();
           />
           <TextField
             margin="dense"
+            required
             id="description"
             label="description Address"
             type="description"
@@ -62,7 +65,7 @@ const dispatch = useDispatch();
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleSave}>Save</Button>
+          <Button onClick={handleSave} disabled={!(taskData.name && taskData.desc)}>Save</Button>
         </DialogActions>
       </Dialog>
     </div>

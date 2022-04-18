@@ -1,36 +1,31 @@
-import { DELETE_TASK, EDIT_TASK, SAVE_TASK } from './taskType'
-import { v4 as uuidv4 } from 'uuid';
+import { DELETE_TASK, SAVE_TASK } from './taskType'
 
 const initialState = {
-  taskData: [{
-    name: 'shikhar',
-    desc: 'hello its is a good task',
-    id: uuidv4(),
-  }]
+  taskData: JSON.parse(localStorage.getItem("taskData")) || [],
 }
 
-const editTaskData = (state, data) => {
-const updatedData = state?.taskData?.map(element => {
- if( element.id === data.id) {
-return data;
- }
- return element;
-});
-return updatedData;
-}
+const saveTaskData = (state, action) => {
+  const updatedData = [...state.taskData, action.payload];
+  localStorage.setItem("taskData", JSON.stringify(updatedData));
+  return updatedData;
+};
+const deleteTask = (state, id) => {
+  const updatedData = state?.taskData?.filter(
+    ({ id: elementId }) => elementId !== id
+  );
+  localStorage.setItem("taskData", JSON.stringify(updatedData));
+  return updatedData;
+};
+
 const taskReducer = (state = initialState, action) => {
   switch (action.type) {
     case SAVE_TASK: return {
       ...state,
-      taskData:[...state.taskData, action.payload]
-    }
-    case EDIT_TASK: return {
-      ...state,
-      taskData: editTaskData(state, action.payload)
+      taskData: saveTaskData(state, action)
     }
     case DELETE_TASK: return {
       ...state,
-      componentToRender: action.payload
+      taskData: deleteTask(state, action.payload)
     }
 
     default: return state
